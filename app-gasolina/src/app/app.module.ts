@@ -10,6 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     MatMenuModule,
     MatButtonModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   providers: [
     provideAnimationsAsync()
