@@ -26,13 +26,13 @@
     <div class="row">
       <div class="col-12">
         <mat-slider [min]="0" [max]="10">
-          <input matSliderStartThumb [(ngModel)] = precioInicial>
-          <input matSliderEndThumb [(ngModel)] = precioFinal>
+          <input matSliderStartThumb [(ngModel)] = precioMinimo>
+          <input matSliderEndThumb [(ngModel)] = precioMaximo>
         </mat-slider>
       </div>
       <div class="col-12 row">
-        <p class="col ms-1">{{precioInicial}}€</p>
-        <p class="col">{{precioFinal}}€</p>
+        <p class="col ms-1">{{precioMinimo}}€</p>
+        <p class="col">{{precioMaximo}}€</p>
       </div>
     </div>
     <form class="d-flex" role="search">

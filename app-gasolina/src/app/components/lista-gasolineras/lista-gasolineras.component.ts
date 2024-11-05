@@ -8,7 +8,7 @@ import { GasolineraResponse, ListaGasolinerasResponse } from '../../models/gasol
   styleUrls: ['./lista-gasolineras.component.css']
 })
 export class ListaGasolinerasComponent {
-  precioInicial = 0;
-  precioFinal = 10;
+  precioMinimo = 0;
+  precioMaximo = 10;
 }
 
