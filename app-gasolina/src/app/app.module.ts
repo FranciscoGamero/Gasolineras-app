@@ -8,6 +8,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSliderModule} from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {MatButtonModule} from '@angular/material/button';
     AppRoutingModule,
     NgbModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSliderModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

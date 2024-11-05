@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { GasolineraService } from '../../services/gasolinera.service';
 import { GasolineraResponse, ListaGasolinerasResponse } from '../../models/gasolinera-response.interfaces';
 
@@ -7,13 +7,8 @@ import { GasolineraResponse, ListaGasolinerasResponse } from '../../models/gasol
   templateUrl: './lista-gasolineras.component.html',
   styleUrls: ['./lista-gasolineras.component.css']
 })
-export class ListaGasolinerasComponent implements OnInit {
-
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-
-  }
+export class ListaGasolinerasComponent {
+  seletedValue1 = 0;
+  seletedValue2 = 0;
 }
+

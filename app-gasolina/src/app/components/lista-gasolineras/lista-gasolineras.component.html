@@ -5,6 +5,13 @@
       <button mat-menu-item>Item 1</button>
       <button mat-menu-item>Item 2</button>
     </mat-menu>
+    <div>
+      <h2>Rango precios: <span><strong>Valor inicial:{{seletedValue1}}</strong></span><br><span><strong>{{seletedValue2}}</strong></span> </h2>
+    </div>
+    <mat-slider [min]="0" [max]="10">
+      <input matSliderStartThumb [(ngModel)] = seletedValue1>
+      <input matSliderEndThumb [(ngModel)] = seletedValue2>
+    </mat-slider>
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
