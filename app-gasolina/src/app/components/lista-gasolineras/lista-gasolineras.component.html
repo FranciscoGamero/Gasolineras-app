@@ -1,29 +1,37 @@
+
+
 <nav class="navbar fondoNav">
   <div class="container-fluid">
-    <button class="text-dark botonNav" mat-button [matMenuTriggerFor]="menu">
-        Carburantes
-      <mat-icon 
-        aria-hidden="false"
-        aria-label="Example home icon"
-        fontIcon="arrow_drop_down"
-      ></mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Biodiesel</button>
-      <button mat-menu-item>Bioetanol</button>
-      <button mat-menu-item>Gas Natural Comprimido</button>
-      <button mat-menu-item>Gas Natural Licuado</button>
-      <button mat-menu-item>Gases licuados del petróleo</button>
-      <button mat-menu-item>Gasoleo A</button>
-      <button mat-menu-item>Gasoleo B</button>
-      <button mat-menu-item>Gasoleo Premium</button>
-      <button mat-menu-item>Gasolina 95 E10</button>
-      <button mat-menu-item>Gasolina 95 E5</button>
-      <button mat-menu-item>Gasolina 98 E10</button>
-      <button mat-menu-item>Gasolina 98 E5</button>
-      <button mat-menu-item>Hidrogeno</button>
-    </mat-menu>
-    <div class="row">
+  
+ 
+    <mat-form-field class="w-25 rounded-3" >
+      <mat-label>Combustibles</mat-label>
+      <select class="text-center" matNativeControl required>
+        <option value="biodiesel">Biodiesel</option>
+        <option value="Bioetanol">Bioetanol</option>
+        <option value="Gas Natural Comprimido">Gas Natural Comprimido</option>
+        <option value="Gas Natural Licuado">Gas Natural Licuado</option>
+        <option value="Gases licuados del petróleo<">Gases licuados del petróleo<</option>
+        <option value="gasoleoA">Gasoleo A</option>
+        <option value="gasoleoB">Gasoleo B</option>
+        <option value="Gasoleo Premium">Gasoleo Premium</option>
+        <option value="95 E10">Gasolina 95 E10</option>
+        <option value="95">Gasolina 95 E5</option>
+        <option value="Gasolina 98 E10">Gasolina 98 E10</option>
+        <option value="98">Gasolina 98 E5</option>
+        <option value="hidrogeno">Hidrogeno</option>
+      </select>
+      
+    </mat-form-field>
+
+  
+    <!--
+    
+    
+    
+    
+   
+      <div class="row">
       <div class="col-12">
         <mat-slider [min]="0" [max]="10">
           <input matSliderStartThumb [(ngModel)] = precioMinimo>
@@ -34,7 +42,9 @@
         <p class="col ms-1">{{precioMinimo}}€</p>
         <p class="col">{{precioMaximo}}€</p>
       </div>
-    </div>
+    </div>  
+    -->
+  
     <form class="d-flex" role="search">
       <input
         class="form-control me-2"
@@ -52,3 +62,30 @@
     </form>
   </div>
 </nav>
+
+<div class="row mt-4 ">
+  @for(gasolinera of listadoGasolineras; track
+listadoGasolineras.indexOf(gasolinera)) {
+
+<div class="col">
+  <div class="card m-2" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ gasolinera.nombre }}</h5>
+      <p class="card-text">{{gasolinera.price95}}</p>
+      <p class="card-text">{{gasolinera.priceGasoleoA}}</p>
+      <p class="card-text">{{gasolinera.priceBiodiesel}}</p>
+      <p class="card-text">{{gasolinera.priceGasolina98}}</p>
+      <p class="card-text">{{gasolinera.priceHidrogeno}}</p>
+      <p class="card-text">{{gasolinera.priceGasoleoB}}</p>
+    </div>
+  </div>
+</div>
+
+}
+</div>
+
+
+
+
+
+

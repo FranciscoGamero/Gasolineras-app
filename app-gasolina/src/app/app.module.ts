@@ -11,6 +11,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon'
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,13 @@ import {MatIconModule} from '@angular/material/icon'
     MatButtonModule,
     MatSliderModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatCardModule
   ],
   providers: [
+    provideHttpClient(),
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
