@@ -1,14 +1,42 @@
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar fondoNav">
   <div class="container-fluid">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <button class="text-dark botonNav" mat-button [matMenuTriggerFor]="menu">
+        Carburantes
+      <mat-icon 
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="arrow_drop_down"
+      ></mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button mat-menu-item>Biodiesel</button>
+      <button mat-menu-item>Bioetanol</button>
+      <button mat-menu-item>Gas Natural Comprimido</button>
+      <button mat-menu-item>Gas Natural Licuado</button>
+      <button mat-menu-item>Gases licuados del petróleo</button>
+      <button mat-menu-item>Gasoleo A</button>
+      <button mat-menu-item>Gasoleo B</button>
+      <button mat-menu-item>Gasoleo Premium</button>
+      <button mat-menu-item>Gasolina 95 E10</button>
+      <button mat-menu-item>Gasolina 95 E5</button>
+      <button mat-menu-item>Gasolina 98 E10</button>
+      <button mat-menu-item>Gasolina 98 E5</button>
+      <button mat-menu-item>Hidrogeno</button>
     </mat-menu>
     <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="rounded-3 botonNav text-dark border-0">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="search"
+        ></mat-icon>
+      </button>
     </form>
   </div>
 </nav>
-
