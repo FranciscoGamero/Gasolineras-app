@@ -8,16 +8,9 @@
       <mat-label>Combustibles</mat-label>
       <mat-select [(ngModel)]="selectedFuel" (selectionChange)="filterByFuel($event.value)" required>
         <mat-option  value="biodiesel">Biodiesel</mat-option>
-        <mat-option value="Bioetanol">Bioetanol</mat-option>
-        <mat-option value="Gas Natural Comprimido">Gas Natural Comprimido</mat-option>
-        <mat-option value="Gas Natural Licuado">Gas Natural Licuado</mat-option>
-        <mat-option value="Gases licuados del petróleo<">Gases licuados del petróleo<</mat-option>
         <mat-option value="gasoleoA">Gasoleo A</mat-option>
         <mat-option value="gasoleoB">Gasoleo B</mat-option>
-        <mat-option value="Gasoleo Premium">Gasoleo Premium</mat-option>
-        <mat-option value="95 E1 0">Gasolina 95 E1 0</mat-option>
         <mat-option value="95">Gasolina 95 E5</mat-option>
-        <mat-option value="Gasolina 98 E1 0">Gasolina 98 E1 0</mat-option>
         <mat-option value="98">Gasolina 98 E5</mat-option>
         <mat-option value="hidrogeno">Hidrogeno</mat-option>
       </mat-select>
@@ -79,22 +72,22 @@ gasolinerasFiltradas.indexOf(gasolinera)) {
   <div class="card m-2" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title text-center">{{ gasolinera.nombre }}</h5>
-      @if (gasolinera.price95 != 0) {
+      @if (selectedFuel === '95' && gasolinera.price95 != 0) {
       <p class="card-text">Gasolina 95: {{gasolinera.price95}}€</p>
       }
-      @if (gasolinera.priceGasoleoA != 0) {
+      @if (selectedFuel === 'gasoleoA' && gasolinera.priceGasoleoA != 0) {
       <p class="card-text">Gasoleo A: {{gasolinera.priceGasoleoA}}€</p>
       }
-      @if (gasolinera.priceBiodiesel != 0) {
+      @if (selectedFuel === 'biodiesel' && gasolinera.priceBiodiesel != 0) {
       <p class="card-text">Biodiesel: {{gasolinera.priceBiodiesel}}€</p>
       }
-      @if (gasolinera.priceGasolina98 != 0) {
+      @if (selectedFuel === '98' && gasolinera.priceGasolina98 != 0) {
       <p class="card-text">Gasolina 98: {{gasolinera.priceGasolina98}}€</p>
       }
-      @if (gasolinera.priceHidrogeno != 0) {
+      @if (selectedFuel === 'hidrogeno' && gasolinera.priceHidrogeno != 0) {
       <p class="card-text">Hidrogeno: {{gasolinera.priceHidrogeno}}€</p>
       }
-      @if (gasolinera.priceGasoleoB != 0) {
+      @if (selectedFuel === 'gasoleoB' && gasolinera.priceGasoleoB != 0) {
       <p class="card-text">Gasoleo B: {{gasolinera.priceGasoleoB}}€</p>
       }
       <p class="card-text">CP: {{gasolinera.postalCode}}</p>
