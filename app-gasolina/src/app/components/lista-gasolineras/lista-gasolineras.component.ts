@@ -17,7 +17,7 @@ export class ListaGasolinerasComponent implements OnInit {
   codigoPostalBuscado: string = '';
   precioCambiado: boolean = false;
 
-  constructor(private gasolineraService: GasolineraService) {}
+  constructor(private gasolineraService: GasolineraService) { }
 
   ngOnInit() {
     this.gasolineraService.getGasList().subscribe((respuesta) => {
@@ -26,7 +26,7 @@ export class ListaGasolinerasComponent implements OnInit {
       try {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        this.listadoGasolineras = this.cleanProperties(arrayGasolineras).slice(0, 20);
+        this.listadoGasolineras = this.cleanProperties(arrayGasolineras);
         this.gasolinerasFiltradas = this.listadoGasolineras;
         console.log(this.listadoGasolineras);
       } catch (error) {
@@ -39,7 +39,7 @@ export class ListaGasolinerasComponent implements OnInit {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
       const gasolineraConNombresGuenos: any = {};
-  
+
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
@@ -58,12 +58,12 @@ export class ListaGasolinerasComponent implements OnInit {
         this.corregirPrecio(gasolineraChusquera['Precio Hidrogeno']),
         this.corregirPrecio(gasolineraChusquera['Precio Gasoleo B'])
       );
-  
+
       newArray.push(gasolinera);
     });
     return newArray;
   }
-  
+
   private corregirPrecio(price: string): number {
     const precioCorregido = parseFloat(price.replace(',', '.'));
     return isNaN(precioCorregido) ? 0 : precioCorregido;
@@ -115,7 +115,7 @@ export class ListaGasolinerasComponent implements OnInit {
   filterByPrice() {
     console.log('Precio mínimo:', this.precioMinimo);
     console.log('Precio máximo:', this.precioMaximo);
-  
+
     this.gasolinerasFiltradas = this.listadoGasolineras.filter(
       (gasolinera) =>
         (gasolinera.price95 !== null && gasolinera.price95 >= this.precioMinimo && gasolinera.price95 <= this.precioMaximo) ||
@@ -125,14 +125,20 @@ export class ListaGasolinerasComponent implements OnInit {
         (gasolinera.priceHidrogeno !== null && gasolinera.priceHidrogeno >= this.precioMinimo && gasolinera.priceHidrogeno <= this.precioMaximo) ||
         (gasolinera.priceGasoleoB !== null && gasolinera.priceGasoleoB >= this.precioMinimo && gasolinera.priceGasoleoB <= this.precioMaximo)
     );
-  
+
     console.log('Gasolineras filtradas:', this.gasolinerasFiltradas);
     this.precioCambiado = true;
   }
   cambiandoPrecio() {
     this.precioCambiado = false;
   }
-  filterByCodigoPostal(){
-    return this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => (gasolinera.postalCode === this.codigoPostalBuscado))
+  filterByCodigoPostal() {
+    if (this.codigoPostalBuscado === '') {
+      this.gasolinerasFiltradas = this.listadoGasolineras;
+    } else {
+      this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+        (gasolinera) => gasolinera.postalCode === this.codigoPostalBuscado
+      );
+    }
   }
 }

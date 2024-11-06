@@ -1,9 +1,7 @@
 
 
 <nav class="navbar fondoNav">
-  <div class="container-fluid">
-  
- 
+  <div class="container-fluid justify-content-between mt-4">
     <mat-form-field class="w-25 rounded-3" >
       <mat-label>Combustibles</mat-label>
       <mat-select [(ngModel)]="selectedFuel" (selectionChange)="filterByFuel($event.value)" required>
@@ -25,49 +23,36 @@
     </mat-form-field>
 
     <div class="row">
-      <div class="col-7 row">
-        <div class="col-12">
+      <div class="col-7 d-flex">
+        <div class="rounded-3 botonNav text-dark p-2 mb-2">
           <mat-slider [min]=" 0" [max]="2" [step]=" 0.1" (change)="cambiandoPrecio()">
-            <input matSliderStartThumb [(ngModel)]="precioMinimo">
-            <input matSliderEndThumb [(ngModel)]="precioMaximo">
+            <input matSliderStartThumb name="precioMinimo" [(ngModel)]="precioMinimo">
+            <input matSliderEndThumb  name="precioMaximo" [(ngModel)]="precioMaximo">
           </mat-slider>
-        </div>
-        <div class="col row">
-          <p class="col ms-1">{{precioMinimo}}€</p>
-          <p class="col">{{precioMaximo}}€</p>
+          <div class="d-flex gap-5">
+            <p class="me-1">{{precioMinimo}}€</p>
+            <p class="ms-4">{{precioMaximo}}€</p>
+          </div>
         </div>
       </div>
       <div class="col-5">
-        <button class="btn btn-primary" (click)="filterByPrice()" [disabled]="precioCambiado">Buscar Precios</button>
+        <button class="rounded-3 botonNav text-dark border-0 py-1 mt-3" (click)="filterByPrice()" [disabled]="precioCambiado">Buscar Precios</button>
       </div>
     </div>
-    <div class="row">
-      <form class="example-form">
-        <mat-form-field class="example-form-field">
+    <div class="d-flex">
+      <form>
+        <mat-form-field class="example-full-width">
           <mat-label>Codigo Postal</mat-label>
-          <input matInput type="text" [(ngModel)]="codigoPostalBuscado">
-          @if (codigoPostalBuscado.length>0) {
-            <button matSuffix mat-icon-button (click)='filterByCodigoPostal()'>
-            </button>
-          }
+          <input matInput placeholder="41920" name="codigoPostalBuscado" [(ngModel)]="codigoPostalBuscado">
         </mat-form-field>
       </form>
-    </div>
-    <form class="d-flex" role="search">
-      <input
-        class="form-control me-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button class="rounded-3 botonNav text-dark border- 0">
+      <button class="rounded-3 botonNav text-dark border-0 h-100 m-3" (click)="filterByCodigoPostal()">
         <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="search"
-        ></mat-icon>
-      </button>
-    </form>
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="search"
+        ></mat-icon></button>
+    </div>
   </div>
 </nav>
 
@@ -98,6 +83,7 @@ gasolinerasFiltradas.indexOf(gasolinera)) {
       <p class="card-text">Gasoleo B: {{gasolinera.priceGasoleoB}}€</p>
       }
       <p class="card-text">CP: {{gasolinera.postalCode}}</p>
+      <p class="card-text">Provincia: {{gasolinera.provincia}}</p>
     </div>
   </div>
 </div>
