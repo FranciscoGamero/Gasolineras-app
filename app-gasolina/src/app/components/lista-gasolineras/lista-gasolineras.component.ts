@@ -7,13 +7,14 @@ import { GasolineraService } from '../../services/gasolinera.service';
   templateUrl: './lista-gasolineras.component.html',
   styleUrls: ['./lista-gasolineras.component.css'],
 })
-export class ListaGasolinerasComponent {
+export class ListaGasolinerasComponent implements OnInit {
 
   listadoGasolineras: Gasolinera[] = [];
   gasolinerasFiltradas: Gasolinera[] = [];
-  precioMaximo: number = 2;
-  precioMinimo: number = 0;
+  @Input() precioMaximo: number = 2;
+  @Input() precioMinimo: number = 0;
   selectedFuel: string = '';
+  codigoPostalBuscado: string = '';
   precioCambiado: boolean = false;
 
   constructor(private gasolineraService: GasolineraService) {}
@@ -25,8 +26,9 @@ export class ListaGasolinerasComponent {
       try {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        this.listadoGasolineras = this.cleanProperties(arrayGasolineras);
+        this.listadoGasolineras = this.cleanProperties(arrayGasolineras).slice(0, 20);
         this.gasolinerasFiltradas = this.listadoGasolineras;
+        console.log(this.listadoGasolineras);
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -37,29 +39,34 @@ export class ListaGasolinerasComponent {
     let newArray: Gasolinera[] = [];
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
       const gasolineraConNombresGuenos: any = {};
-
+  
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
-        gasolineraChusquera['Precio Gasolina 95 E5'],
-        gasolineraChusquera['Precio Gasoleo A'],
+        this.corregirPrecio(gasolineraChusquera['Precio Gasolina 95 E5']),
+        this.corregirPrecio(gasolineraChusquera['Precio Gasoleo A']),
         gasolineraChusquera['C.P.'],
         gasolineraChusquera['Dirección'],
         gasolineraChusquera['Localidad'],
         gasolineraChusquera['Provincia'],
-        gasolineraChusquera['Latitud'],
-        gasolineraChusquera['Longitud'],
+        parseFloat(gasolineraChusquera['Latitud'].replace(',', '.')),
+        parseFloat(gasolineraChusquera['Longitud (WGS84)'].replace(',', '.')),
         gasolineraChusquera['Horario'],
         gasolineraChusquera['Remisión'],
-        gasolineraChusquera['Precio Biodiesel'],
-        gasolineraChusquera['Precio Gasolina 98 E5'],
-        gasolineraChusquera['Precio Hidrogeno'],
-        gasolineraChusquera['Precio Gasoleo B']
+        this.corregirPrecio(gasolineraChusquera['Precio Biodiesel']),
+        this.corregirPrecio(gasolineraChusquera['Precio Gasolina 98 E5']),
+        this.corregirPrecio(gasolineraChusquera['Precio Hidrogeno']),
+        this.corregirPrecio(gasolineraChusquera['Precio Gasoleo B'])
       );
-
+  
       newArray.push(gasolinera);
     });
     return newArray;
+  }
+  
+  private corregirPrecio(price: string): number {
+    const precioCorregido = parseFloat(price.replace(',', '.'));
+    return isNaN(precioCorregido) ? 0 : precioCorregido;
   }
 
   filterByFuel(fuel: string) {
@@ -106,23 +113,26 @@ export class ListaGasolinerasComponent {
     }
   }
   filterByPrice() {
-    console.log('Precio mínimo:', this.precioMinimo); // Verifica el valor de precioMinimo
-    console.log('Precio máximo:', this.precioMaximo); // Verifica el valor de precioMaximo
-
+    console.log('Precio mínimo:', this.precioMinimo);
+    console.log('Precio máximo:', this.precioMaximo);
+  
     this.gasolinerasFiltradas = this.listadoGasolineras.filter(
       (gasolinera) =>
-        (gasolinera.price95 >= this.precioMinimo && gasolinera.price95 <= this.precioMaximo) ||
-        (gasolinera.priceGasoleoA >= this.precioMinimo && gasolinera.priceGasoleoA <= this.precioMaximo) ||
-        (gasolinera.priceBiodiesel >= this.precioMinimo && gasolinera.priceBiodiesel <= this.precioMaximo) ||
-        (gasolinera.priceGasolina98 >= this.precioMinimo && gasolinera.priceGasolina98 <= this.precioMaximo) ||
-        (gasolinera.priceHidrogeno >= this.precioMinimo && gasolinera.priceHidrogeno <= this.precioMaximo) ||
-        (gasolinera.priceGasoleoB >= this.precioMinimo && gasolinera.priceGasoleoB <= this.precioMaximo)
+        (gasolinera.price95 !== null && gasolinera.price95 >= this.precioMinimo && gasolinera.price95 <= this.precioMaximo) ||
+        (gasolinera.priceGasoleoA !== null && gasolinera.priceGasoleoA >= this.precioMinimo && gasolinera.priceGasoleoA <= this.precioMaximo) ||
+        (gasolinera.priceBiodiesel !== null && gasolinera.priceBiodiesel >= this.precioMinimo && gasolinera.priceBiodiesel <= this.precioMaximo) ||
+        (gasolinera.priceGasolina98 !== null && gasolinera.priceGasolina98 >= this.precioMinimo && gasolinera.priceGasolina98 <= this.precioMaximo) ||
+        (gasolinera.priceHidrogeno !== null && gasolinera.priceHidrogeno >= this.precioMinimo && gasolinera.priceHidrogeno <= this.precioMaximo) ||
+        (gasolinera.priceGasoleoB !== null && gasolinera.priceGasoleoB >= this.precioMinimo && gasolinera.priceGasoleoB <= this.precioMaximo)
     );
-
-    console.log('Gasolineras filtradas:', this.gasolinerasFiltradas); // Verifica los resultados filtrados
+  
+    console.log('Gasolineras filtradas:', this.gasolinerasFiltradas);
     this.precioCambiado = true;
   }
   cambiandoPrecio() {
     this.precioCambiado = false;
-}
+  }
+  filterByCodigoPostal(){
+    return this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => (gasolinera.postalCode === this.codigoPostalBuscado))
+  }
 }

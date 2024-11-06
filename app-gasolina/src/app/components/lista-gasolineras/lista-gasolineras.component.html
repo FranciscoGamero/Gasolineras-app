@@ -15,9 +15,9 @@
         <mat-option value="gasoleoA">Gasoleo A</mat-option>
         <mat-option value="gasoleoB">Gasoleo B</mat-option>
         <mat-option value="Gasoleo Premium">Gasoleo Premium</mat-option>
-        <mat-option value="95 E10">Gasolina 95 E10</mat-option>
+        <mat-option value="95 E1 0">Gasolina 95 E1 0</mat-option>
         <mat-option value="95">Gasolina 95 E5</mat-option>
-        <mat-option value="Gasolina 98 E10">Gasolina 98 E10</mat-option>
+        <mat-option value="Gasolina 98 E1 0">Gasolina 98 E1 0</mat-option>
         <mat-option value="98">Gasolina 98 E5</mat-option>
         <mat-option value="hidrogeno">Hidrogeno</mat-option>
       </mat-select>
@@ -25,17 +25,33 @@
     </mat-form-field>
 
     <div class="row">
-      <div class="col-12">
-        <mat-slider [min]="0" [max]="2" [step]="0.1" (change)="cambiandoPrecio()">
-          <input matSliderStartThumb [(ngModel)]="precioMinimo">
-          <input matSliderEndThumb [(ngModel)]="precioMaximo">
-        </mat-slider>
+      <div class="col-7 row">
+        <div class="col-12">
+          <mat-slider [min]=" 0" [max]="2" [step]=" 0.1" (change)="cambiandoPrecio()">
+            <input matSliderStartThumb [(ngModel)]="precioMinimo">
+            <input matSliderEndThumb [(ngModel)]="precioMaximo">
+          </mat-slider>
+        </div>
+        <div class="col row">
+          <p class="col ms-1">{{precioMinimo}}€</p>
+          <p class="col">{{precioMaximo}}€</p>
+        </div>
+      </div>
+      <div class="col-5">
         <button class="btn btn-primary" (click)="filterByPrice()" [disabled]="precioCambiado">Buscar Precios</button>
       </div>
-      <div class="col-12 row">
-        <p class="col ms-1">{{precioMinimo}}€</p>
-        <p class="col">{{precioMaximo}}€</p>
-      </div>
+    </div>
+    <div class="row">
+      <form class="example-form">
+        <mat-form-field class="example-form-field">
+          <mat-label>Codigo Postal</mat-label>
+          <input matInput type="text" [(ngModel)]="codigoPostalBuscado">
+          @if (codigoPostalBuscado.length>0) {
+            <button matSuffix mat-icon-button (click)='filterByCodigoPostal()'>
+            </button>
+          }
+        </mat-form-field>
+      </form>
     </div>
     <form class="d-flex" role="search">
       <input
@@ -44,7 +60,7 @@
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="rounded-3 botonNav text-dark border-0">
+      <button class="rounded-3 botonNav text-dark border- 0">
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -62,13 +78,26 @@ gasolinerasFiltradas.indexOf(gasolinera)) {
 <div class="col">
   <div class="card m-2" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">{{ gasolinera.nombre }}</h5>
-      <p class="card-text">{{gasolinera.price95}}</p>
-      <p class="card-text">{{gasolinera.priceGasoleoA}}</p>
-      <p class="card-text">{{gasolinera.priceBiodiesel}}</p>
-      <p class="card-text">{{gasolinera.priceGasolina98}}</p>
-      <p class="card-text">{{gasolinera.priceHidrogeno}}</p>
-      <p class="card-text">{{gasolinera.priceGasoleoB}}</p>
+      <h5 class="card-title text-center">{{ gasolinera.nombre }}</h5>
+      @if (gasolinera.price95 != 0) {
+      <p class="card-text">Gasolina 95: {{gasolinera.price95}}€</p>
+      }
+      @if (gasolinera.priceGasoleoA != 0) {
+      <p class="card-text">Gasoleo A: {{gasolinera.priceGasoleoA}}€</p>
+      }
+      @if (gasolinera.priceBiodiesel != 0) {
+      <p class="card-text">Biodiesel: {{gasolinera.priceBiodiesel}}€</p>
+      }
+      @if (gasolinera.priceGasolina98 != 0) {
+      <p class="card-text">Gasolina 98: {{gasolinera.priceGasolina98}}€</p>
+      }
+      @if (gasolinera.priceHidrogeno != 0) {
+      <p class="card-text">Hidrogeno: {{gasolinera.priceHidrogeno}}€</p>
+      }
+      @if (gasolinera.priceGasoleoB != 0) {
+      <p class="card-text">Gasoleo B: {{gasolinera.priceGasoleoB}}€</p>
+      }
+      <p class="card-text">CP: {{gasolinera.postalCode}}</p>
     </div>
   </div>
 </div>
