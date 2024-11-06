@@ -8,11 +8,13 @@ import { GasolineraService } from '../../services/gasolinera.service';
   styleUrls: ['./lista-gasolineras.component.css'],
 })
 export class ListaGasolinerasComponent {
+
   listadoGasolineras: Gasolinera[] = [];
   gasolinerasFiltradas: Gasolinera[] = [];
-  precioMaximo: number = 10;
+  precioMaximo: number = 2;
   precioMinimo: number = 0;
   selectedFuel: string = '';
+  precioCambiado: boolean = false;
 
   constructor(private gasolineraService: GasolineraService) {}
 
@@ -103,4 +105,24 @@ export class ListaGasolinerasComponent {
         break;
     }
   }
+  filterByPrice() {
+    console.log('Precio mínimo:', this.precioMinimo); // Verifica el valor de precioMinimo
+    console.log('Precio máximo:', this.precioMaximo); // Verifica el valor de precioMaximo
+
+    this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+      (gasolinera) =>
+        (gasolinera.price95 >= this.precioMinimo && gasolinera.price95 <= this.precioMaximo) ||
+        (gasolinera.priceGasoleoA >= this.precioMinimo && gasolinera.priceGasoleoA <= this.precioMaximo) ||
+        (gasolinera.priceBiodiesel >= this.precioMinimo && gasolinera.priceBiodiesel <= this.precioMaximo) ||
+        (gasolinera.priceGasolina98 >= this.precioMinimo && gasolinera.priceGasolina98 <= this.precioMaximo) ||
+        (gasolinera.priceHidrogeno >= this.precioMinimo && gasolinera.priceHidrogeno <= this.precioMaximo) ||
+        (gasolinera.priceGasoleoB >= this.precioMinimo && gasolinera.priceGasoleoB <= this.precioMaximo)
+    );
+
+    console.log('Gasolineras filtradas:', this.gasolinerasFiltradas); // Verifica los resultados filtrados
+    this.precioCambiado = true;
+  }
+  cambiandoPrecio() {
+    this.precioCambiado = false;
+}
 }

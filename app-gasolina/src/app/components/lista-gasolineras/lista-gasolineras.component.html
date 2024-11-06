@@ -24,27 +24,19 @@
       
     </mat-form-field>
 
-  
-    
-    
-    
-    
-    <!--
-   
-      <div class="row">
+    <div class="row">
       <div class="col-12">
-        <mat-slider [min]="0" [max]="10">
-          <input matSliderStartThumb [(ngModel)] = precioMinimo>
-          <input matSliderEndThumb [(ngModel)] = precioMaximo>
+        <mat-slider [min]="0" [max]="2" [step]="0.1" (change)="cambiandoPrecio()">
+          <input matSliderStartThumb [(ngModel)]="precioMinimo">
+          <input matSliderEndThumb [(ngModel)]="precioMaximo">
         </mat-slider>
+        <button class="btn btn-primary" (click)="filterByPrice()" [disabled]="precioCambiado">Buscar Precios</button>
       </div>
       <div class="col-12 row">
         <p class="col ms-1">{{precioMinimo}}€</p>
         <p class="col">{{precioMaximo}}€</p>
       </div>
-    </div>  
-    -->
-  
+    </div>
     <form class="d-flex" role="search">
       <input
         class="form-control me-2"
