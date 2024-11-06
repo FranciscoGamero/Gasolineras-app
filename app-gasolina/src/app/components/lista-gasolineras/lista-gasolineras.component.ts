@@ -1,28 +1,26 @@
 import { Component, Input, input, OnInit } from '@angular/core';
-import { Gasolinera} from '../../models/gasolinera-response.interfaces';
+import { Gasolinera } from '../../models/gasolinera-response.interfaces';
 import { GasolineraService } from '../../services/gasolinera.service';
 
 @Component({
   selector: 'app-lista-gasolineras',
   templateUrl: './lista-gasolineras.component.html',
-  styleUrls: ['./lista-gasolineras.component.css']
+  styleUrls: ['./lista-gasolineras.component.css'],
 })
-export class ListaGasolinerasComponent{
- 
+export class ListaGasolinerasComponent {
   listadoGasolineras: Gasolinera[] = [];
   gasolinerasFiltradas: Gasolinera[] = [];
+  precioMaximo: number = 10;
+  precioMinimo: number = 0;
+  selectedFuel: string = '';
 
-  
-
-  constructor(private gasolineraService :GasolineraService) {}
+  constructor(private gasolineraService: GasolineraService) {}
 
   ngOnInit() {
     this.gasolineraService.getGasList().subscribe((respuesta) => {
-  
       const respuestaEnString = JSON.stringify(respuesta);
       let parsedData;
       try {
-
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
         this.listadoGasolineras = this.cleanProperties(arrayGasolineras);
@@ -38,7 +36,6 @@ export class ListaGasolinerasComponent{
     arrayGasolineras.forEach((gasolineraChusquera: any) => {
       const gasolineraConNombresGuenos: any = {};
 
- 
       let gasolinera = new Gasolinera(
         gasolineraChusquera['IDEESS'],
         gasolineraChusquera['Rótulo'],
@@ -63,32 +60,47 @@ export class ListaGasolinerasComponent{
     return newArray;
   }
 
-
   filterByFuel(fuel: string) {
-    if (fuel === '95') {
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.price95 !== null;
-      });
-    } else if (fuel === 'gasoleoA') {
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.priceGasoleoA !== null;
-      });
-    }else if (fuel === 'biodiesel') {
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.priceBiodiesel !== null;
-      });
-    }else if(fuel === '98'){
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.priceGasolina98 !== null;
-      });
-    }else if(fuel === 'hidrogeno'){
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.priceHidrogeno !== null;
-      });
-    }else if(fuel === 'gasoleoB'){
-      this.gasolinerasFiltradas = this.listadoGasolineras.filter((gasolinera) => {
-        return gasolinera.priceGasoleoB !== null;
-      });
+    switch (fuel) {
+      case '95':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => gasolinera.price95 !== null
+        );
+
+        break;
+      case 'gasoleoA':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => {
+            return gasolinera.priceGasoleoA !== null;
+          }
+        );
+        break;
+      case 'biodiesel':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => gasolinera.priceBiodiesel !== null
+        );
+        break;
+      case '98':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => {
+            return gasolinera.priceGasolina98 !== null;
+          }
+        );
+        break;
+      case 'hidrogeno':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => {
+            return gasolinera.priceHidrogeno !== null;
+          }
+        );
+        break;
+      case 'gasoleoB':
+        this.gasolinerasFiltradas = this.listadoGasolineras.filter(
+          (gasolinera) => {
+            return gasolinera.priceGasoleoB !== null;
+          }
+        );
+        break;
     }
   }
-} 
+}

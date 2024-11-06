@@ -6,30 +6,30 @@
  
     <mat-form-field class="w-25 rounded-3" >
       <mat-label>Combustibles</mat-label>
-      <select class="text-center" matNativeControl required>
-        <option value="biodiesel">Biodiesel</option>
-        <option value="Bioetanol">Bioetanol</option>
-        <option value="Gas Natural Comprimido">Gas Natural Comprimido</option>
-        <option value="Gas Natural Licuado">Gas Natural Licuado</option>
-        <option value="Gases licuados del petróleo<">Gases licuados del petróleo<</option>
-        <option value="gasoleoA">Gasoleo A</option>
-        <option value="gasoleoB">Gasoleo B</option>
-        <option value="Gasoleo Premium">Gasoleo Premium</option>
-        <option value="95 E10">Gasolina 95 E10</option>
-        <option value="95">Gasolina 95 E5</option>
-        <option value="Gasolina 98 E10">Gasolina 98 E10</option>
-        <option value="98">Gasolina 98 E5</option>
-        <option value="hidrogeno">Hidrogeno</option>
-      </select>
+      <mat-select [(ngModel)]="selectedFuel" (selectionChange)="filterByFuel($event.value)" required>
+        <mat-option  value="biodiesel">Biodiesel</mat-option>
+        <mat-option value="Bioetanol">Bioetanol</mat-option>
+        <mat-option value="Gas Natural Comprimido">Gas Natural Comprimido</mat-option>
+        <mat-option value="Gas Natural Licuado">Gas Natural Licuado</mat-option>
+        <mat-option value="Gases licuados del petróleo<">Gases licuados del petróleo<</mat-option>
+        <mat-option value="gasoleoA">Gasoleo A</mat-option>
+        <mat-option value="gasoleoB">Gasoleo B</mat-option>
+        <mat-option value="Gasoleo Premium">Gasoleo Premium</mat-option>
+        <mat-option value="95 E10">Gasolina 95 E10</mat-option>
+        <mat-option value="95">Gasolina 95 E5</mat-option>
+        <mat-option value="Gasolina 98 E10">Gasolina 98 E10</mat-option>
+        <mat-option value="98">Gasolina 98 E5</mat-option>
+        <mat-option value="hidrogeno">Hidrogeno</mat-option>
+      </mat-select>
       
     </mat-form-field>
 
   
+    
+    
+    
+    
     <!--
-    
-    
-    
-    
    
       <div class="row">
       <div class="col-12">
@@ -64,8 +64,8 @@
 </nav>
 
 <div class="row mt-4 ">
-  @for(gasolinera of listadoGasolineras; track
-listadoGasolineras.indexOf(gasolinera)) {
+  @for(gasolinera of gasolinerasFiltradas; track
+gasolinerasFiltradas.indexOf(gasolinera)) {
 
 <div class="col">
   <div class="card m-2" style="width: 18rem;">
