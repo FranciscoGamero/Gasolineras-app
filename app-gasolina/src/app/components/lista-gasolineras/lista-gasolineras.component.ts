@@ -1,6 +1,7 @@
 import { Component, Input, input, OnInit } from '@angular/core';
 import { Gasolinera } from '../../models/gasolinera-response.interfaces';
 import { GasolineraService } from '../../services/gasolinera.service';
+import { PipeGoogleMapsPipe } from '../../pipes/pipe-google-maps.pipe';
 
 @Component({
   selector: 'app-lista-gasolineras',
@@ -28,7 +29,7 @@ export class ListaGasolinerasComponent implements OnInit {
       try {
         parsedData = JSON.parse(respuestaEnString);
         let arrayGasolineras = parsedData['ListaEESSPrecio'];
-        this.listadoGasolineras = this.cleanProperties(arrayGasolineras).splice(0, 30);
+        this.listadoGasolineras = this.cleanProperties(arrayGasolineras).splice(0, 200);
         this.gasolinerasFiltradas = this.listadoGasolineras;
         console.log(this.listadoGasolineras);
       } catch (error) {
@@ -177,5 +178,5 @@ export class ListaGasolinerasComponent implements OnInit {
       });
     }
     console.log('Gasolineras filtradas por carburantes:', this.gasolinerasFiltradas);
-  }
+  }  
 }

@@ -17,11 +17,15 @@ import {MatCardModule} from '@angular/material/card';
 import { provideHttpClient } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PipeGoogleMapsPipe } from './pipes/pipe-google-maps.pipe';
+import { MapRouterPipe } from './pipes/map-router.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaGasolinerasComponent
+    ListaGasolinerasComponent,
+    PipeGoogleMapsPipe,
+    MapRouterPipe
   ],
   imports: [
     BrowserModule,
